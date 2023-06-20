@@ -1,16 +1,15 @@
 package edu.wat.tim.lab1.controller;
 
-
+import edu.wat.tim.lab1.model.ArtykulEntity;
+import edu.wat.tim.lab1.model.KlientEntity;
+import edu.wat.tim.lab1.model.KoszykEntity;
+import edu.wat.tim.lab1.service.ScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import edu.wat.tim.lab1.service.ScriptService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -21,6 +20,17 @@ public class ScriptController {
     @Autowired
     public ScriptController(ScriptService scriptService) {
         this.scriptService = scriptService;
+    }
+
+    @PostMapping("/add-artykul")
+    public ResponseEntity<String> createProdukt (@RequestBody List<ArtykulEntity> artykul) {
+        scriptService.dodajProdukt(artykul);
+        return ResponseEntity.ok("Artykul zostal dodany pomyślnie.");
+    }
+    @PostMapping("/add-klienci")
+    public ResponseEntity<String> createKlient(@RequestBody List<KlientEntity> klienci) {
+        scriptService.createKlient(klienci);
+        return ResponseEntity.ok("Klienci dodani pomyślnie.");
     }
 
     @PutMapping()

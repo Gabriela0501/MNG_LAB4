@@ -1,0 +1,40 @@
+var artykuly = artykulEntityRepository.findAll();
+for (var i = 0; i < artykuly.length; i++) {
+    var artykul = artykuly[i];
+    var nazwa = artykul.getNazwa();
+    var reversedNazwa = reverseString(nazwa);
+    var modifiedNazwa = replaceSpaces(reversedNazwa);
+    artykul.setNazwa(modifiedNazwa);
+    artykulEntityRepository.save(artykul);
+}
+
+function reverseString(str) {
+    var reversed = "";
+    for (var i = 0; ; i++) {
+        if (str[i] === undefined) {
+            break;
+        }
+        reversed = str[i] + reversed;
+    }
+    return reversed;
+}
+
+function replaceSpaces(str) {
+    var modified = "";
+    var spaceCount = 0;
+    for (var i = 0; ; i++) {
+        if (str[i] === undefined) {
+            break;
+        }
+        if (str[i] === " ") {
+            spaceCount++;
+        } else {
+            if (spaceCount > 0) {
+                modified += " ";
+                spaceCount = 0;
+            }
+            modified += str[i];
+        }
+    }
+    return modified;
+}
